@@ -64,7 +64,7 @@ FCN通过把全连接层转换为卷积层，实现的是一个端到端，像�
 #### 实验:
 dataset: pascal voc 2012 (segemeantation class 21个类)   
 [论文源码](https://github.com/shelhamer/fcn.berkeleyvision.org)   
-原作者使用的是caffe,本文是keras    
+原作者使用的是caffe,本文是keras,将数据集划分成train，validation,test，比例为8:1:1。每一个文件夹下都存放了images和mask文件夹.    
 - 对比了上采样选择转置卷积和双线性插值，转置卷积val_loss下降的速度很慢，以0.00001的速度下降    
 - 有无数据增强效果相差不大   
 - optimizer选择'adam'的时候val_loss不下降，train的loss和accuracy无规律。选择SGD的时候val_loss下降的很慢，以千分点下降,选择RMSprop效果最好 
