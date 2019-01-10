@@ -13,7 +13,9 @@
  ## 语义分割
   - [ ] FCN
     - [ ] pascal voc 2012
-  - [ ] U-Net
+  - [ ] U-Net  
+  - [ ] Deeplab  
+  
  ## 目标检测
   - [ ] R-CNN
   - [ ] SPP-Net
