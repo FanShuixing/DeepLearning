@@ -11,10 +11,13 @@
     - [ ] kaggle cat_and dogs
    
  ## 语义分割
-  - [ ] FCN
-    - [ ] pascal voc 2012
+  - [x] FCN
+    - [x] pascal voc 2012
+    - [ ] 遥感
   - [ ] U-Net  
   - [ ] Deeplab  
+  - [ ] FCN+CRF
+  - [ ] FCN+MRF
   
  ## 目标检测
   - [ ] R-CNN
