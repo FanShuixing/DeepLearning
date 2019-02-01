@@ -48,5 +48,6 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  1. 增加了skip_connection参数，在mobilenet v2中，是通过stides是否等于1来增加residuan connection结构。
  2. 增加了rate参数,rate参数是用来指定dilation_rate，这个dilation_rate即是用来指定空洞卷积的膨胀率。
  
- > 参考：[空洞卷积(https://www.zhihu.com/question/54149221)
+ > 参考：[空洞卷积](https://www.zhihu.com/question/54149221)
+ > [空洞卷积](https://zhuanlan.zhihu.com/p/50369448)
  
