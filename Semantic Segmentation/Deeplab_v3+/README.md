@@ -25,7 +25,7 @@ depthwise separable convolution主要包括两部分：depthwise卷积和pointwi
 ```
 1. depthwise卷积   
 DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做卷积的时候每个通道对应于单独的卷积核,然后每个通道只和对应的卷积核做乘法，并不会相加。如上面输入32x32x10,DeepthwiseConc2D对应有10个filters，每个filter只和相应的通道做乘法，输出的就是10个通道的特征图，所以没有了普通卷积的跨通道性质，depthwise做的只是一个简单的乘法，并没有合并若干个特征从而产生新的特征，也并没有升维降维的功能。由此引入了pointwise  
-2. pointwise    
+2. pointwise卷积（指的就是代码中的第二个卷积操作）    
  pointwise主要做的是用于特征和并以及升维降维，用1x1的filter可以很好的解决这个问题。
     
  ### mobilenet_v2
@@ -36,7 +36,7 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
   - bottlenecking features
   > 参考 [mobilenet v2](https://zhuanlan.zhihu.com/p/33169767)
   
-  ![Alt text](https://github.com/FanShuixing/test/blob/master/1/a.jpg)
+  ![mobilenet v1 and mobilenet v2 structures](https://github.com/FanShuixing/test/blob/master/1/a.jpg)
 从源码分析，mobilenet v2在mobilenet v1的基础上做了如下改动（体现在inverted residual blocks结构里面）：
 - 添加了一个expansion(1x1的conv2D,BN,relu6)   
   就是上图中右图中的conv 1x1,relu6(在relu6之前应该有BN)
