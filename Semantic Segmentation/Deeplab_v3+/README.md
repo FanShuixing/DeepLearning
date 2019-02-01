@@ -37,7 +37,7 @@ depthwise separable convolution主要包括两部分：depthwise卷积和pointwi
   - bottlenecking features
   > 参考 [mobilenet v2](https://zhuanlan.zhihu.com/p/33169767)
   
-  ![Alt text](https://pic4.zhimg.com/v2-b5af2ae3e210901ec31c79dc1e395fab_r.jpg)
+  ![Alt text](https://github.com/FanShuixing/test/blob/master/1/a.jpg)
 从源码分析，mobilenet v2在mobilenet v1的基础上做了如下改动（体现在inverted residual blocks结构里面）：
 - 添加了一个expansion(1x1的conv2D,BN,relu6)
 - 当strides=1的时候，多增加了一个类似于resnet 中的residual block的短连接，并且去掉了relu6
