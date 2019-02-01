@@ -8,8 +8,9 @@
 --- 
 > 参考：[MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)
 
-Mobilenet v1:   
-    mobilenet v1里面主要引入了**Depthwise Separable Convolution**。 
+   
+**Mobilenet v1**:   
+  mobilenet v1里面主要引入了**Depthwise Separable Convolution**。 
 深度可分离卷积的提出就是为了解决传统卷积参数多、计算量大 。    
 depthwise separable convolution主要包括两部分：depthwise卷积和pointwise卷积。先看传统卷积过程：  
 ```ruby
