@@ -31,7 +31,7 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  ### mobilenet_v2
    > MobileNetV2 is very similar to the original MobileNet,except that it uses inverted residual blocks with bottlenecking features. It has a drastically lower parameter count than the original MobileNet. MobileNets support any input size greater than 32 x 32, with larger image sizes offering better performance.
 
-### 知识点：
+**知识点**：
   - inverted residual blocks
   - bottlenecking features
   > 参考 [mobilenet v2](https://zhuanlan.zhihu.com/p/33169767)
@@ -42,3 +42,8 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
   就是上图中右图中的conv 1x1,relu6(在relu6之前应该有BN)。在resnet的residual block中，通常会用1x1的fliters用于降维，这样可以减少后面3x3卷积的运算量，后面再用1x1的filters升维，但是在inverted residual blocks中，由于我们使用的是深度可分离卷积，深度可分离卷积可以做到在压缩模型参数近8倍的情况下不会过多损伤信息，所以可以通过1x1的filters增加通道数目而不用担心计算量过大。
 - 当strides=1的时候，多增加了一个类似于resnet 中的residual block的短连接，并且去掉了relu6   
   mobilenet的结构有点类似于VGG这种直筒结构，但是Resnet和Densenet的结构证明，复用前面层的特征效果总是好的，所以在mobilenet v2中引入了residual connection的结构，而relu6之前在xception验证了其加在深度可分离卷积层后会损失信息，作者也在mobilenet v2中用大量篇幅推理论证了去掉relu6的必要性。
+
+### deeplab v3与mobilenet v2:
+从源码中可以看出deeplab v3复用了mobinet v2的结构，但是对mobilenet v2中的inverted residual blocks有所改变（对应于源码中的_inverted_res_block函数）
+ 1. 增加了skip_connection参数，在mobilenet v2中，是通过stides是否等于1来增加residuan connection结构
+ 2. 增加了rate参数,rate参数是用来
