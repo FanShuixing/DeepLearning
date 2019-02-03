@@ -5,7 +5,7 @@
 1. Depthwise Separable Convolution(mobilenet系列梳理) 
 2. 空洞卷积
 3. ASPP
---- 
+
 ## 1. mobilenet 系列梳理  
 > 参考：[MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)
 
@@ -65,10 +65,10 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  - 扩大感受野
  - 捕获多尺度上下文信息
  
- **扩大感受野**
+ **扩大感受野**  
  在deep net中为了增加感受野且降低计算量，总要进行降采样(pooling或s2/conv)，这样虽然可以增加感受野，但空间分辨率降低了。为了能不丢失分辨率，且仍然扩大感受野，可以使用空洞卷积。这在检测，分割任务中十分有用。一方面感受野大了可以检测分割大目标，另一方面分辨率高了可以精确定位目标。
  
- **捕获多尺度上下文信息**
+ **捕获多尺度上下文信息**   
  空洞卷积有一个参数可以设置dilation rate，具体含义就是在卷积核中填充dilation rate-1个0，因此，当设置不同dilation rate时，感受野就会不一样，也即获取了多尺度信息。多尺度信息在视觉任务中相当重要.
  ### 2.3 空洞卷积存在的问题
  - griding效应
