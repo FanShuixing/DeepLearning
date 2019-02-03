@@ -2,14 +2,15 @@
 
 #### 知识点梳理：
 
-- Depthwise Separable Convolution(mobilenet系列梳理) 
-- 空间金字塔池化
-- 
+1. Depthwise Separable Convolution(mobilenet系列梳理) 
+2. 空洞卷积
+3. ASPP
 --- 
+## 1. mobilenet 系列梳理  
 > 参考：[MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)
 
 deeplab v3代码借鉴了mobilenet v1的深度可分离卷积和mobilenet v2（所以如果有看不懂的代码，可查看mobilenet源码，官方写的很详细）   
-**Mobilenet v1**:   
+### 1.1 Mobilenet v1:   
   mobilenet v1里面主要引入了**Depthwise Separable Convolution**。它的提出就是为了解决传统卷积参数多、计算量大的现象。    
 depthwise separable convolution主要包括两部分：depthwise卷积和pointwise卷积。先看传统卷积过程：  
 ```ruby
@@ -28,7 +29,7 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 2. pointwise卷积（指的就是代码中的第二个卷积操作）    
  pointwise主要做的是用于特征和并以及升维降维，用1x1的filter可以很好的解决这个问题。
     
- ### mobilenet_v2
+### 1.2 mobilenet_v2
    > MobileNetV2 is very similar to the original MobileNet,except that it uses inverted residual blocks with bottlenecking features. It has a drastically lower parameter count than the original MobileNet. MobileNets support any input size greater than 32 x 32, with larger image sizes offering better performance.
 
 **知识点**：
@@ -43,12 +44,17 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 - 当strides=1的时候，多增加了一个类似于resnet 中的residual block的短连接，并且去掉了relu6   
   mobilenet的结构有点类似于VGG这种直筒结构，但是Resnet和Densenet的结构证明，复用前面层的特征效果总是好的，所以在mobilenet v2中引入了residual connection的结构，而relu6之前在xception验证了其加在深度可分离卷积层后会损失信息，作者也在mobilenet v2中用大量篇幅推理论证了去掉relu6的必要性。
 
-### deeplab v3与mobilenet v2:
+### 1.3 deeplab v3与mobilenet v2:
 从源码中可以看出deeplab v3复用了mobinet v2的结构，但是对mobilenet v2中的inverted residual blocks有所改变（对应于源码中的_inverted_res_block函数）
- 1. 增加了skip_connection参数，在mobilenet v2中，是通过stides是否等于1来增加residual connection结构。
+ 1. 增加了skip_connection参数，用来指定是否增加residual connection结构。在mobilenet v2中，是通过stides是否等于1来增加residual connection结构。
  2. 增加了rate参数,rate参数是用来指定dilation_rate，这个dilation_rate即是用来指定空洞卷积的膨胀率。
+ 
+ ## 2. 空洞卷积  
  
  > 参考：  
  >> [空洞卷积](https://www.zhihu.com/question/54149221)  
  >> [空洞卷积](https://zhuanlan.zhihu.com/p/50369448)
  
+ 2.1 什么是空洞卷积  
+ 2.2 为什么提出空洞卷积  
+ 2.3 空洞卷积与普通卷积的优劣  
