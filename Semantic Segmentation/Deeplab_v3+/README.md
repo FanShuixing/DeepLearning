@@ -1,15 +1,14 @@
-### Deeplab v3+
-
+### [Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1706.05587)
 **知识点梳理**：
 
-1. Depthwise Separable Convolution(mobilenet系列梳理) 
+1. Depthwise Separable Convolution(mobilenet 系列梳理) 
 2. 空洞卷积
-3. ASPP
+3. ASPP(Atrous Spatial Pyramid Pooling)
+
+*deeplab v3代码用了mobilenet v2的结构,所以下面从mobilenet系列开始梳理（如果deeplab有看不懂的代码，可查看mobilenet源码，keras开源写的很详细)* 
 
 ## 1. mobilenet 系列梳理  
-> 参考：[MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)
 
-deeplab v3代码借鉴了mobilenet v1的深度可分离卷积和mobilenet v2（所以如果有看不懂的代码，可查看mobilenet源码，官方写的很详细）   
 ### 1.1 Mobilenet v1:   
   mobilenet v1里面主要引入了**Depthwise Separable Convolution**。它的提出就是为了解决传统卷积参数多、计算量大的现象。    
 depthwise separable convolution主要包括两部分：depthwise卷积和pointwise卷积。先看传统卷积过程：  
@@ -35,7 +34,6 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 **知识点**：
   - inverted residual blocks
   - bottlenecking features
-  > 参考 [mobilenet v2](https://zhuanlan.zhihu.com/p/33169767)
   
   ![mobilenet v1 and mobilenet v2 structures](https://github.com/FanShuixing/test/blob/master/1/a.jpg)
 从源码分析，mobilenet v2在mobilenet v1的基础上做了如下改动（体现在inverted residual blocks结构里面）：
@@ -51,10 +49,6 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  3. Atrous Spatial Pyramid Pooling
  
  ## 2. 空洞卷积  
- 
- > 参考：  
- >> [空洞卷积](https://www.zhihu.com/question/54149221)  
- >> [空洞卷积](https://zhuanlan.zhihu.com/p/50369448)
 
  ### 2.1 空洞卷积
   ![空洞卷积gif](https://github.com/vdumoulin/conv_arithmetic/blob/master/gif/dilation.gif)
@@ -71,3 +65,9 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  - griding效应  
  
  
+**参考**:
+> [MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)  
+> [深度学习——分类之MobileNet v2移动端神经网络新选择](https://zhuanlan.zhihu.com/p/33169767)  
+> [如何理解空洞卷积（dilated convolution）？](https://www.zhihu.com/question/54149221)    
+> [总结-空洞卷积(Dilated/Atrous Convolution)](https://zhuanlan.zhihu.com/p/50369448)  
+> [Understanding Convolution for Semantic Segmentation](https://arxiv.org/abs/1702.08502)
