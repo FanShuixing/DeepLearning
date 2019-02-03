@@ -1,6 +1,6 @@
 ### Deeplab v3+
 
-#### 知识点梳理：
+**知识点梳理**：
 
 1. Depthwise Separable Convolution(mobilenet系列梳理) 
 2. 空洞卷积
@@ -18,7 +18,7 @@ inputs = Input(shape=(32,32,10))
 x = Conv2D(filters=64, kernel_size=(3,3), strides=(2,2), padding='same', activation='relu')(inputs)
 ```
 对于输入为32x32x10,在进行卷积的时候，filter=64,kernel_size=(3,3),我们会用一个3x3x10的滑动窗口在输入的矩阵上滑动做乘法和加法运算，总共有64个这样的filter，最后得到的是32x32x64的特征图。  
-现在我们用深度可分离卷积代替上面的传统卷积过程
+现在我们用深度可分离卷积代替上面的传统卷积过程 
 ```ruby
 inputs = Input(shape=(32,32,10))
 x = DepthwiseConv2D(kernel_size=(3,3),padding='same', activation='relu', name = 'm_dc_2')(x)    
@@ -48,20 +48,17 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 从源码中可以看出deeplab v3复用了mobinet v2的结构，但是对mobilenet v2中的inverted residual blocks有所改变（对应于源码中的_inverted_res_block函数）
  1. 增加了skip_connection参数，用来指定是否增加residual connection结构。在mobilenet v2中，是通过stides是否等于1来增加residual connection结构。
  2. 增加了rate参数,rate参数是用来指定dilation_rate，这个dilation_rate即是用来指定空洞卷积的膨胀率。
+ 3. Atrous Spatial Pyramid Pooling
  
  ## 2. 空洞卷积  
  
  > 参考：  
  >> [空洞卷积](https://www.zhihu.com/question/54149221)  
  >> [空洞卷积](https://zhuanlan.zhihu.com/p/50369448)
- 
- 2.1 什么是空洞卷积  
- 2.2 为什么提出空洞卷积  
- 2.3 空洞卷积存在的问题 
- 
- ### 2.1 什么是空洞卷积
- 
- ### 2.2 为什么提出空洞卷积
+
+ ### 2.1 空洞卷积
+  ![空洞卷积gif](https://github.com/vdumoulin/conv_arithmetic/blob/master/gif/dilation.gif)
+ ### 2.2 空洞卷积作用
  - 扩大感受野
  - 捕获多尺度上下文信息
  
@@ -69,6 +66,8 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  在deep net中为了增加感受野且降低计算量，总要进行降采样(pooling或s2/conv)，这样虽然可以增加感受野，但空间分辨率降低了。为了能不丢失分辨率，且仍然扩大感受野，可以使用空洞卷积。这在检测，分割任务中十分有用。一方面感受野大了可以检测分割大目标，另一方面分辨率高了可以精确定位目标。
  
  **捕获多尺度上下文信息**   
- 空洞卷积有一个参数可以设置dilation rate，具体含义就是在卷积核中填充dilation rate-1个0，因此，当设置不同dilation rate时，感受野就会不一样，也即获取了多尺度信息。多尺度信息在视觉任务中相当重要.
- ### 2.3 空洞卷积存在的问题
- - griding效应
+ 空洞卷积有一个参数可以设置dilation rate，具体含义就是在卷积核中填充dilation rate-1个0，因此，当设置不同dilation rate时，感受野就会不一样，也即获取了多尺度信息。多尺度信息在视觉任务中相当重要.   
+ ### 2.3 空洞卷积存在的问题  
+ - griding效应  
+ 
+ 
