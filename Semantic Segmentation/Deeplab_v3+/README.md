@@ -45,9 +45,10 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 
 ### deeplab v3与mobilenet v2:
 从源码中可以看出deeplab v3复用了mobinet v2的结构，但是对mobilenet v2中的inverted residual blocks有所改变（对应于源码中的_inverted_res_block函数）
- 1. 增加了skip_connection参数，在mobilenet v2中，是通过stides是否等于1来增加residuan connection结构。
+ 1. 增加了skip_connection参数，在mobilenet v2中，是通过stides是否等于1来增加residual connection结构。
  2. 增加了rate参数,rate参数是用来指定dilation_rate，这个dilation_rate即是用来指定空洞卷积的膨胀率。
  
- > 参考：[空洞卷积](https://www.zhihu.com/question/54149221)
- > [空洞卷积](https://zhuanlan.zhihu.com/p/50369448)
+ > 参考：  
+ >> [空洞卷积](https://www.zhihu.com/question/54149221)  
+ >> [空洞卷积](https://zhuanlan.zhihu.com/p/50369448)
  
