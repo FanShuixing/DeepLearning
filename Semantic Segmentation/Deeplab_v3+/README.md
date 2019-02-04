@@ -1,4 +1,4 @@
-### [Rethinking Atrous Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1706.05587)
+### [Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1802.02611)
 **知识点梳理**：
 
 1. Depthwise Separable Convolution(mobilenet 系列梳理) 
