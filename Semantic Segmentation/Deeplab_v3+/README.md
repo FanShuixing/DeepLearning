@@ -52,7 +52,11 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  使用mobilenet v2作为backbone时，ASPP只有两个分支，使用xception时，ASPP有五个分支，源码中写道尚不清楚为什么要这样做。
  
  ## 2. xception
+ ### 2.1 xception结构
+ ![xception model.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/xception.png)
  
+ ### 2.2 deeplab v3+中的xception结构
+ ![deeplab_xveption.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/modified_xception.png)
  ## 2. 空洞卷积  
 
  ### 2.1 空洞卷积
