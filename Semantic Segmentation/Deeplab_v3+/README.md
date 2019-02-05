@@ -1,11 +1,13 @@
 ### [Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation](https://arxiv.org/abs/1802.02611)
 **知识点梳理**：
 
-1. Depthwise Separable Convolution(mobilenet 系列梳理) 
-2. 空洞卷积
-3. ASPP(Atrous Spatial Pyramid Pooling)
+1. Depthwise Separable Convolution 
+2. 空洞卷积 
+3. ASPP(Atrous Spatial Pyramid Pooling) 
 
-*deeplab v3代码用了mobilenet v2的结构,所以下面从mobilenet系列开始梳理（如果deeplab有看不懂的代码，可查看mobilenet源码，keras开源写的很详细)* 
+![deeplab v3 model.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/model.png)
+上图是deeplab v3+基于xception的模型结构，整个模型是一种encoder-decoder的结构。这种结构在。图中并联的四个卷积和一个image pooling是ASPP结构，
+*deeplab v3+代码用了mobilenet v2和xception结构,而xception也是google对inception v3所提出的改进，主要是用了depthwise separable convolution替代了原来的卷积操作。depthwise separable convolution来源于mobilenet.所以下面从mobilenet模型开始梳理。* 
 
 ## 1. mobilenet 系列梳理  
 
@@ -46,7 +48,10 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 从源码中可以看出deeplab v3复用了mobinet v2的结构，但是对mobilenet v2中的inverted residual blocks有所改变（对应于源码中的_inverted_res_block函数）
  1. 增加了skip_connection参数，用来指定是否增加residual connection结构。在mobilenet v2中，是通过stides是否等于1来增加residual connection结构。
  2. 增加了rate参数,rate参数是用来指定dilation_rate，这个dilation_rate即是用来指定空洞卷积的膨胀率。
- 3. Atrous Spatial Pyramid Pooling
+ 3. Atrous Spatial Pyramid Pooling   
+ 使用mobilenet v2作为backbone时，ASPP只有两个分支，使用xception时，ASPP有五个分支，源码中写道尚不清楚为什么要这样做。
+ 
+ ## 2. xception
  
  ## 2. 空洞卷积  
 
@@ -64,10 +69,13 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  ### 2.3 空洞卷积存在的问题  
  - griding效应  
  
- 
+ ### 3. ASPP 
+ ![ASPP structure.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/ASPP.png)
+ 图中的ASPP截图来源于基于xception结构的deeplab v3+。
 **参考**:
 > [MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)  
 > [深度学习——分类之MobileNet v2移动端神经网络新选择](https://zhuanlan.zhihu.com/p/33169767)  
 > [如何理解空洞卷积（dilated convolution）？](https://www.zhihu.com/question/54149221)    
 > [总结-空洞卷积(Dilated/Atrous Convolution)](https://zhuanlan.zhihu.com/p/50369448)  
 > [Understanding Convolution for Semantic Segmentation](https://arxiv.org/abs/1702.08502)
+
