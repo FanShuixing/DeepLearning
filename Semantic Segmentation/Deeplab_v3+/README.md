@@ -6,10 +6,12 @@
 3. ASPP(Atrous Spatial Pyramid Pooling) 
 
 ![deeplab v3 model.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/model.png)
-上图是deeplab v3+基于xception的模型结构，整个模型是一种encoder-decoder的结构。这种结构在。图中并联的四个卷积和一个image pooling是ASPP结构，
+上图是deeplab v3+基于xception的模型结构，整个模型是一种encoder-decoder的结构。这种结构在。其中DCNN的结构就是2.2中的模型结构。图中并联的四个卷积和一个image pooling是ASPP结构，Decoder中有一个concat的操作，这个concat左边的1x1卷积是在2.2中的entry flow中的第二个卷积块的第二个sep conv后操作。   
+
+--- 
 *deeplab v3+代码用了mobilenet v2和xception结构,而xception也是google对inception v3所提出的改进，主要是用了depthwise separable convolution替代了原来的卷积操作。depthwise separable convolution来源于mobilenet.所以下面从mobilenet模型开始梳理。* 
 
-## 1. mobilenet 系列梳理  
+## 1. mobilenet和xception
 
 ### 1.1 Mobilenet v1:   
   mobilenet v1里面主要引入了**Depthwise Separable Convolution**。它的提出就是为了解决传统卷积参数多、计算量大的现象。    
@@ -19,7 +21,7 @@ inputs = Input(shape=(32,32,10))
 x = Conv2D(filters=64, kernel_size=(3,3), strides=(2,2), padding='same', activation='relu')(inputs)
 ```
 对于输入为32x32x10,在进行卷积的时候，filter=64,kernel_size=(3,3),我们会用一个3x3x10的滑动窗口在输入的矩阵上滑动做乘法和加法运算，总共有64个这样的filter，最后得到的是32x32x64的特征图。  
-现在我们用深度可分离卷积代替上面的传统卷积过程 
+现在我们用深度可分离卷积代替上面的传统卷积过程：  
 ```ruby
 inputs = Input(shape=(32,32,10))
 x = DepthwiseConv2D(kernel_size=(3,3),padding='same', activation='relu', name = 'm_dc_2')(x)    
@@ -40,7 +42,7 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
   ![mobilenet v1 and mobilenet v2 structures](https://github.com/FanShuixing/test/blob/master/1/a.jpg)
 从源码分析，mobilenet v2在mobilenet v1的基础上做了如下改动（体现在inverted residual blocks结构里面）：
 - 添加了一个expansion(1x1的conv2D,BN,relu6)   
-  就是上图中右图中的conv 1x1,relu6(在relu6之前应该有BN)。在resnet的residual block中，通常会用1x1的fliters用于降维，这样可以减少后面3x3卷积的运算量，后面再用1x1的filters升维，但是在inverted residual blocks中，由于我们使用的是深度可分离卷积，深度可分离卷积可以做到在压缩模型参数近8倍的情况下不会过多损伤信息，所以可以通过1x1的filters增加通道数目而不用担心计算量过大。
+  就是上图中右图中的conv 1x1,relu6(在relu6之前应该有BN)。在resnet的residual block中，通常会用1x1的filters用于降维，这样可以减少后面3x3卷积的运算量，后面再用1x1的filters升维，但是在inverted residual blocks中，由于我们使用的是深度可分离卷积，深度可分离卷积可以做到在压缩模型参数近8倍的情况下不会过多损伤信息，所以可以通过1x1的filters增加通道数目而不用担心计算量过大。
 - 当strides=1的时候，多增加了一个类似于resnet 中的residual block的短连接，并且去掉了relu6   
   mobilenet的结构有点类似于VGG这种直筒结构，但是Resnet和Densenet的结构证明，复用前面层的特征效果总是好的，所以在mobilenet v2中引入了residual connection的结构，而relu6之前在xception验证了其加在深度可分离卷积层后会损失信息，作者也在mobilenet v2中用大量篇幅推理论证了去掉relu6的必要性。
 
@@ -51,11 +53,11 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  3. Atrous Spatial Pyramid Pooling   
  使用mobilenet v2作为backbone时，ASPP只有两个分支，使用xception时，ASPP有五个分支，源码中写道尚不清楚为什么要这样做。
  
- ## 2. xception
- ### 2.1 xception结构
+
+ ### 1.4 xception结构
  ![xception model.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/xception.png)
  
- ### 2.2 deeplab v3+中的xception结构
+ ### 1.5 deeplab v3+中的xception结构
  ![deeplab_xveption.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/modified_xception.png)
  ## 2. 空洞卷积  
 
@@ -75,7 +77,11 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  
  ### 3. ASPP 
  ![ASPP structure.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/ASPP.png)
- 图中的ASPP截图来源于基于xception结构的deeplab v3+。
+ 图中的ASPP截图来源于基于xception结构的deeplab v3+。  
+ 
+ ## 实验：
+ - keras
+ 
 **参考**:
 > [MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)  
 > [深度学习——分类之MobileNet v2移动端神经网络新选择](https://zhuanlan.zhihu.com/p/33169767)  
