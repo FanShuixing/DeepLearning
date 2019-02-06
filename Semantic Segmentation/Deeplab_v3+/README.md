@@ -81,7 +81,9 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  
  ## 实验：
  - keras
- 
+ 1. backbone选择xcepetion比mobilenet v2的分割效果更好，可以在后缀名包含predict的notebook中看到。
+ 2. 当backbone选择xception时，batch_size最大只能选择13。当选择xception时，若OS=8,batch_size最大只能为4,所以本次实验中选择的是OS＝16。  
+    
 **参考**:
 > [MobileNet v1 和 MobileNet v2](https://zhuanlan.zhihu.com/p/50045821)  
 > [深度学习——分类之MobileNet v2移动端神经网络新选择](https://zhuanlan.zhihu.com/p/33169767)  
