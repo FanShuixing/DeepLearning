@@ -32,7 +32,7 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 2. pointwise卷积（指的就是代码中的第二个卷积操作）    
  pointwise主要做的是用于特征和并以及升维降维，用1x1的filter可以很好的解决这个问题。
     
-### 1.2 mobilenet_v2
+### 1.2 mobilenet v2
    > MobileNetV2 is very similar to the original MobileNet,except that it uses inverted residual blocks with bottlenecking features. It has a drastically lower parameter count than the original MobileNet. MobileNets support any input size greater than 32 x 32, with larger image sizes offering better performance.
 
 **知识点**：
@@ -46,7 +46,7 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
 - 当strides=1的时候，多增加了一个类似于resnet 中的residual block的短连接，并且去掉了relu6   
   mobilenet的结构有点类似于VGG这种直筒结构，但是Resnet和Densenet的结构证明，复用前面层的特征效果总是好的，所以在mobilenet v2中引入了residual connection的结构，而relu6之前在xception验证了其加在深度可分离卷积层后会损失信息，作者也在mobilenet v2中用大量篇幅推理论证了去掉relu6的必要性。
 
-### 1.3 deeplab v3与mobilenet v2:
+### 1.3 deeplab v3+与mobilenet v2:
 从源码中可以看出deeplab v3复用了mobinet v2的结构，但是对mobilenet v2中的inverted residual blocks有所改变（对应于源码中的_inverted_res_block函数）
  1. 增加了skip_connection参数，用来指定是否增加residual connection结构。在mobilenet v2中，是通过stides是否等于1来增加residual connection结构。
  2. 增加了rate参数,rate参数是用来指定dilation_rate，这个dilation_rate即是用来指定空洞卷积的膨胀率。
@@ -77,7 +77,7 @@ DepthwiseConv2D没有filters这个参数，因为我们在用DepthwiseConv2D做�
  
  ### 3. ASPP 
  ![ASPP structure.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/ASPP.png)
- 图中的ASPP截图来源于基于xception结构的deeplab v3+。  
+ 图中的ASPP截图来源于基于xception结构的deeplab v3+，ASPP主要是为了在多个尺度捕获上下文信息。池化和带有strides的卷积操作使得特征图丢失了与目标边界有关的详细信息，这种现象可以通过使用空洞卷积来缓解，故在deeplab v3中提出了使用不同rate的几个平行的空洞卷积来代替SPP中的池化操作，又称这样的结构为ASPP。
  
  ## 实验：
  - keras
