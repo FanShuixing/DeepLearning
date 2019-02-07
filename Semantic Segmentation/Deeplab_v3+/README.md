@@ -6,7 +6,7 @@
 3. ASPP(Atrous Spatial Pyramid Pooling) 
 
 ![deeplab v3 model.png](https://github.com/FanShuixing/DeepLearning/blob/master/Semantic%20Segmentation/Deeplab_v3%2B/img/model.png)
-上图是deeplab v3+基于xception的模型结构，整个模型是一种encoder-decoder的结构。这种结构在。其中DCNN的结构就是2.2中的模型结构。图中并联的四个卷积和一个image pooling是ASPP结构，Decoder中有一个concat的操作，这个concat左边的1x1卷积是在2.2中的entry flow中的第二个卷积块的第二个sep conv后操作。   
+上图是deeplab v3+基于xception的模型结构，整个模型是将encoder-decoder与SPP结合的结构。encoder-decoder结构中，encoder模型能够逐渐减小特征图并捕捉更高级的语义信息，decoder模型能够通过逐渐恢复空间信息而捕捉更加精细的目标边界。SPP通过不同的rate可以捕获多个尺度的上下文信息。其中DCNN的结构就是2.2中的模型结构。图中并联的四个卷积和一个image pooling是ASPP结构，Decoder中有一个concat的操作，这个concat左边的1x1卷积是在2.2中的entry flow中的第二个卷积块的第二个sep conv后操作。   
 
 --- 
 *deeplab v3+代码用了mobilenet v2和xception结构,而xception也是google对inception v3所提出的改进，主要是用了depthwise separable convolution替代了原来的卷积操作。depthwise separable convolution来源于mobilenet.所以下面从mobilenet模型开始梳理。* 
