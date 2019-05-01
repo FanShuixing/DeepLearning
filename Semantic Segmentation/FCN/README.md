@@ -6,8 +6,6 @@
 
 ### Prepare
 
-- Environment
-
 
 - Data folder tree
 
