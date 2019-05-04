@@ -1,4 +1,4 @@
-### [源github](https://github.com/amdegroot/ssd.pytorch)
+### [SSD](https://github.com/amdegroot/ssd.pytorch)
 
 ## Prepare:
 
