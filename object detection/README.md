@@ -1,4 +1,9 @@
-### [SSD](https://github.com/amdegroot/ssd.pytorch)
+## [SSD](https://github.com/amdegroot/ssd.pytorch)
+
+## Envorinment
+
+- pytorch 1.0.0
+- python 3.6
 
 ## Prepare:
 
