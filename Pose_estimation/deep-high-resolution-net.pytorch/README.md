@@ -1,4 +1,4 @@
-## [SSD](https://github.com/amdegroot/ssd.pytorch)
+## [HRNet](https://github.com/leoxiaobin/deep-high-resolution-net.pytorch)
 
 ## Envorinment
 
@@ -7,7 +7,8 @@
 
 ## Prepare:
 
-- 下载[weights](https://s3.amazonaws.com/amdegroot-models/vgg16_reducedfc.pth),并把它放置在ssd/weights/下。
+按照作者中的readme配置
+
 - Datasets Folder Tree:
 
 ```
@@ -17,25 +18,20 @@
 |  .
 |  .
 |  .
-|--labels/
-|  |-xxx.json
-|  |-xxx.json
-|  .
-|  .
-|  .
-|--meta.csv
+|--annot/
+|  |-train.json
+|  |-train_val.json
+|  |-valid.json
+|  |-test.json
+|  |-gt_valid.mat
 ```
 
-## Need to change:
-in data/voc0712.py: Line21修改数据集的类别  
-in data/config.py:修改voc中的num_class
-
-
-## Training
+## Change:
+增加了 tools/predict.py:可以用于对指定图像进行预测，并将预测的坐标在图像上显示出来
 ```
-python train.py
+python tools/predict.py \
+    --cfg experiments/mpii/hrnet/w32_256x256_adam_lr1e-3.yaml \
+    TEST.MODEL_FILE output/mpii/pose_hrnet/w32_256x256_adam_lr1e-3/final_state.pth
 ```
 
-## Testing
 
-run demo/demo.ipynb
