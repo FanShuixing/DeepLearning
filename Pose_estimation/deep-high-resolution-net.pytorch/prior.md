@@ -39,7 +39,7 @@ Image_process.ipynb有详细步骤
 
 ### 2.构建模型
 
-
+![images](https://github.com/FanShuixing/DeepLearning/blob/master/Pose_estimation/deep-high-resolution-net.pytorch/imgs/model.png)
 
 ### 3.损失函数
 用的是MSE，模型的输出是outputs:(48,16,64,64).target:(48,16,64,64).
