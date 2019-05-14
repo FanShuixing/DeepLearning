@@ -41,6 +41,15 @@ Image_process.ipynb有详细步骤
 
 ![images](https://github.com/FanShuixing/DeepLearning/blob/master/Pose_estimation/deep-high-resolution-net.pytorch/imgs/model.png)
 
+模型的核心思想：不同于其它现有方法，HRNet是维持高分辨率特征，而不是恢复高分辨率特征(指从high-low resolution中将low representation恢复为high representation)。
+
+模型的主要两个优点：
+- 模型连接高低分辨率子网是通过平行的方式，而大多数现有方法都是串联。
+- 大多数现有的融合都是将低分辨率表征和高分辨率表征进行整合，而HRNet是通过重复执行多次度融合来促进高分辨率表征。
+ > Most existing fusion schemes aggregate low-level and high- level representations. Instead, we perform repeated multi- scale fusions to boost the high-resolution representations with the help of the low-resolution representations of the same depth and similar level, and vice versa, resulting in that high-resolution representations are also rich for pose estimation
+ 
+这两个优点也是图像能够保存高分辨率表征的原因。
+
 ### 3.损失函数
 用的是MSE，模型的输出是outputs:(48,16,64,64).target:(48,16,64,64).
 ```ruby
