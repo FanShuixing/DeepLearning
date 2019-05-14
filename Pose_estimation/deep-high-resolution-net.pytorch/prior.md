@@ -60,7 +60,7 @@ step3: for i in range(num_joints):
 ![images](https://github.com/FanShuixing/DeepLearning/blob/master/Pose_estimation/deep-high-resolution-net.pytorch/imgs/train.png)
 上图中为train的时候的log图，其中Accuracy后面有两个值，第一个值为一个batch_size的acc,第二个值是求多个batch_size的acc平均值。acc是在lib/core/evaluate.py的accuracy()函数中求得的。
 
-```
+```ruby
 acc计算
 input:output:(48,16,64,64),模型预测值
       target:(48,16,64,64),groud truth值
@@ -72,7 +72,7 @@ step3:对上一步中的(16,48)按行循环遍历，将(48,)计算距离小于th
 ```
 ![images](https://github.com/FanShuixing/DeepLearning/blob/master/Pose_estimation/deep-high-resolution-net.pytorch/imgs/test.png)
 上图中Head,Shoulder,Elbow...为对验证集计算pck的值
-```
+```ruby
 input:pos_gt_src:(16,2,2958),16表示16个keypoint,每一个关键点对应一个坐标，2958表示验证集一共2958张图片，
                              这个坐标是相对于原图，不是相对于模型的输入256*256或64*64
       pos_pred_src:(16,2,2958)，16*2的坐标是模型预测得出的，也是相对于原图
