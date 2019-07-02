@@ -33,6 +33,6 @@
 
 **3.2 Progressive Scale Expansion Algorithm**:
 
-![image]()
+![image](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/imgs/psenet_3.png)
 
 ### 实验：  
