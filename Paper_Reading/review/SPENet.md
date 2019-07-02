@@ -19,3 +19,8 @@
 1.作为一个基于分割的方法，PSENet能够定位任意形状的文本。   
 2.我们提出了一个progressive scale expansion algorithm，这个算法能够成功地鉴定出相邻的文本实例。如Figure 1中图d所示。  
 
+**Details**:
+
+**Motivation**:
+
+### 实验：
