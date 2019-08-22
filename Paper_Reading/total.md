@@ -8,6 +8,7 @@
 ### Object Detection
 - [ ] 1.Retinanet:Focal Loss for Dense Object Detection[[review]][[code]]
 - [ ] 2.SSD: Single Shot MultiBox Detector[[review]][[code]]
+- [ ] 3.Mask R-CNN[[review]](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/review/Mask%20R-CNN.md)[[code]]
 ### Text Detection
 - [ ] 1.PSENet:Shape Robust Text Detection with Progressive Scale Expansion Network[[review]](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/review/SPENet.md)[[code]]
 - [ ] 2.CRAFT:Character Region Awareness for Text Detection[[review]][[code]]
