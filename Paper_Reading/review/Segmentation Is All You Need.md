@@ -9,7 +9,7 @@
 
 **2.1 背景**  
 
-![image-20190904203033809](/Users/pan/Library/Application Support/typora-user-images/image-20190904203033809.png)	
+![image-20190904203033809](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/imgs/seg1.png)	
 
 文中指出，在上述情况下使用region proposal机制会遇到两个难点：(1)region proposal 机制的性能严重依赖于purity of bounding boxes，然而在上述这些场景下，标注的边框常常比普通场景下的边框包含了非常多的环境噪声  (2) 在region proposal 机制中常常会使用NMS来选择目标框(通过设定IoU来过滤掉其它目标框)，但是很难找到合适的阈值来使用一些复杂的情况。
 
@@ -17,7 +17,7 @@
 
 **3.1 Overall Pipeline**:  
 
-![image-20190904210903356](/Users/pan/Library/Application Support/typora-user-images/image-20190904210903356.png)
+![image-20190904210903356](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/imgs/seg2.png)
 
 WSMA-Seg有两个阶段：训练和测试阶段。
 
@@ -25,15 +25,15 @@ WSMA-Seg有两个阶段：训练和测试阶段。
 
 训练阶段-分割网络：
 
-![image-20190905100403865](/Users/pan/Library/Application Support/typora-user-images/image-20190905100403865.png)
+![image-20190905100403865](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/imgs/seg4.png)
 
 分割网络是在Hourglass上进行修改，主要是引进了一个mutli-scale block，用来执行multi-scale pooling，如下图所示
 
-![image-20190905101303644](/Users/pan/Library/Application Support/typora-user-images/image-20190905101303644.png)
+![image-20190905101303644](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/imgs/seg5.png)
 
 测试阶段：
 
-![image-20190904211632268](/Users/pan/Library/Application Support/typora-user-images/image-20190904211632268.png)
+![image-20190904211632268](https://github.com/FanShuixing/DeepLearning/blob/master/Paper_Reading/imgs/seg3.png)
 
 如上图所示，首先输入图片到训练好的分割网络中，产生多模态Heatmap，然后基于一个像素级别的操作，这三个heatmap将转换为一个实例分割图。最后，使用这个分割图来生成目标的轮廓(作者提出使用RDB算法来获取轮廓，简单来说就是需要两个变量来存放轮廓像素的位置，若一个像素左边为0右边为1，则它为左轮廓，反之则为右轮廓)，然后目标的边框就是由轮廓的外切四边形组成。
 
